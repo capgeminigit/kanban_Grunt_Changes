@@ -1,0 +1,16 @@
+var static = require('node-static');
+
+//
+// Create a node-static server instance to serve the './public' folder
+//
+var file = new static.Server('./public');
+
+require('http').createServer(function (request, response) {
+    request.addListener('end', function () {
+        //
+        // Serve files!
+        //
+        file.serve(request, response);
+    }).resume();
+}).listen(9080);
+console.log(" Server started on port 9080 ");

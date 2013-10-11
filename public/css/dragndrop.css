@@ -1,0 +1,50 @@
+
+/*
+	Reset (for cross-browser friendlyness)
+------------------------------------------------------------------- */
+
+html,.kanban-dnd-body {border:0;font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit;margin:0;padding:0;vertical-align:baseline;height:100%}
+a, img{border:none}
+a, a:focus, a:hover, a:active, a:visited{outline:none}
+
+
+/*
+	General
+------------------------------------------------------------------- */
+
+.kanban-dnd-body {
+    background-color: #1D5E7B;
+    font: 75%/1.5 sans-serif;
+	height:100%;
+}
+
+/*
+	Alignment
+------------------------------------------------------------------- */
+
+/* Floats */
+
+.kanban-dnd-left {float: left;}
+.kanban-dnd-right {float: right;}
+
+
+/* Clearers */
+
+.kanban-dnd-clear,.kanban-dnd-clearer {clear: both;}
+.kanban-dnd-clearer {
+	display: block;
+	font-size: 0;
+	line-height: 0;
+}
+
+
+/*
+	Sections and titles
+------------------------------------------------------------------- */
+
+
+.kanban-dnd-section {margin-bottom: 24px; padding-top: 32px; height:95%;}
+.kanban-dnd-section-header {margin-bottom: 24px;}
+.kanban-dnd-section-content, #kanban-dnd-div{
+height:95%;
+}

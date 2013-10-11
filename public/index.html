@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html ng-app="dnd">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Kanban Board v0.0.2</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/style_jquery.css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="css/dragndrop.css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="css/contextmenu.css"
+	media="screen" />
+<style>
+</style>
+</head>
+
+<body class="kanban-dnd-body">
+	<div id="kanban-dnd-wrapper">
+		<div class="kanban-dnd-section">
+			<div class="kanban-dnd-section-content" id="main"
+				ng-controller="dndCtrl">
+				<div id="kanban-dnd-div">
+					<div class="columnMain left first" expanded="true">
+						<div class="columnCollapsed" id="divNotStartedCollapsed">
+							<div class="columnCollapsedText pane-title">
+								Not Started (<span class="NScount">{{nstartCount}}</span>)
+							</div>
+						</div>
+						<div class="column" id="divNotStarted">
+							<div class="column-title">
+								<div class="textbox pane-title">
+									Not Started (<span class="NScount">{{nstartCount}}</span>)
+								</div>
+								<div class="iconBox">
+									<img src="img/expand.png" ng-click="addTaskStoreEntry(0)"
+										class="cursor-hand" title="Add Task" />&nbsp; <img
+										src="img/collapse.png" class="cursor-hand"
+										type="collapseColumn" />
+								</div>
+							</div>
+							<ul ui-drop-listener='dropListener' data-stid="0" id="sourceList"
+								dnd-between-list="notStarted,targetList"
+								ng-class="{'minimalList':notStartedEmpty()}"
+								class="sortable-list col1" state="0">
+
+								<li ui-draggable
+									ng-repeat="item in nstart = (taskStore | filter:{ state: 0 })"
+									data-index='{{$index}}' data-id="{{item.id}}"
+									item-index="{{$index}}" item-id="{{item.id}}"
+									item-state="{{item.state}}">
+									<div class="sch-task">
+										<div class="sch-color"></div>
+										<div class="sch-task-name" />
+										<span data-type="editable" data-updatable='true'
+											id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
+										<input id="user-name{{item.id}}" class='hidden'>
+									</div>
+
+									<div class="Imgwrapper" style="display: none">
+										<img id="changeUser{{item.id}}"
+											class="sch-user-avatar context-menu-one cursor-hand"
+											ng-src="{{item.userImg}}" src="" ng-show="true"
+											title="Assign User">
+									</div>
+									<div class="sch-tool-ct">
+										<div ng-hide="item.nbrComments=='0'"
+											class="sch-tool sch-tool-comment">{{item.nbrComments}}</div>
+									</div>
+									<div style="clear: both"></div>
+						</div>
+						</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="columnMain left" expanded="true">
+					<div class="columnCollapsed" id="divInProgressCollapsed">
+						<div class="columnCollapsedText pane-title">
+							In Progress (<span class="NScount">{{inProgressCount}}</span>)
+						</div>
+					</div>
+					<div class="column" id="divInProgress">
+						<div class="column-title">
+							<div class="textbox pane-title">
+								In Progress (<span class="NScount">{{inProgressCount}}</span>)
+							</div>
+							<div class="iconBox">
+								<img src="img/expand.png" ng-click="addTaskStoreEntry(1)"
+									class="cursor-hand" title="Add Task" />&nbsp; <img
+									src="img/collapse.png" class="cursor-hand"
+									type="collapseColumn" />
+							</div>
+						</div>
+						<ul ui-drop-listener='dropListener' data-stid="1"
+							class="sortable-list col2" id="targetList"
+							dnd-between-list="inProgress,targetList1,sourceList"
+							ng-class="{'minimalList':inProgressEmpty()}" state="1">
+							<li ui-draggable
+								ng-repeat="item in inProgress = (taskStore | filter:{ state: 1 })"
+								data-index='{{$index}}' data-id="{{item.id}}"
+								item-index="{{$index}}" item-id="{{item.id}}"
+								item-state="{{item.state}}">
+								<div class="sch-task">
+									<div class="sch-color"></div>
+									<div class="sch-task-name" />
+									<span data-type="editable" data-updatable='true'
+										id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
+									<input id="user-name{{item.id}}" class='hidden'>
+								</div>
+								<div class="Imgwrapper" style="display: none">
+									<img id="changeUser{{item.id}}"
+										class="sch-user-avatar context-menu-one cursor-hand"
+										ng-src="{{item.userImg}}" src="" ng-show="true"
+										title="Assign User">
+								</div>
+								<div class="sch-tool-ct">
+									<div ng-hide="item.nbrComments=='0'"
+										class="sch-tool sch-tool-comment">{{item.nbrComments}}</div>
+								</div>
+								<div style="clear: both"></div>
+					</div>
+					</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="columnMain left" expanded="true">
+				<div class="columnCollapsed" id="divTestCollapsed">
+					<div class="columnCollapsedText pane-title">
+						Test (<span class="NScount">{{testCount}}</span>)
+					</div>
+				</div>
+				<div class="column" id="divTest">
+					<div class="column-title">
+						<div class="textbox pane-title">
+							Test (<span class="NScount">{{testCount}}</span>)
+						</div>
+						<div class="iconBox">
+							<img src="img/expand.png" ng-click="addTaskStoreEntry(2)"
+								class="cursor-hand" title="Add Task" />&nbsp; <img
+								src="img/collapse.png" class="cursor-hand" type="collapseColumn" />
+						</div>
+					</div>
+					<ul ui-drop-listener='dropListener' data-stid="2"
+						class="sortable-list col3" id="targetList1"
+						dnd-between-list="test,targetList,targetList2"
+						ng-class="{'minimalList':testEmpty()}" state="2">
+						<li ui-draggable
+							ng-repeat="item in test = (taskStore | filter:{ state: 2 })"
+							data-index='{{$index}}' data-id="{{item.id}}"
+							item-index="{{$index}}" item-id="{{item.id}}"
+							item-state="{{item.state}}">
+							<div class="sch-task">
+								<div class="sch-color"></div>
+								<div class="sch-task-name" />
+								<span data-type="editable" data-updatable='true'
+									id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
+								<input id="user-name{{item.id}}" class='hidden'>
+							</div>
+
+							<div class="Imgwrapper" style="display: none">
+								<img id="changeUser{{item.id}}"
+									class="sch-user-avatar context-menu-one cursor-hand"
+									ng-src="{{item.userImg}}" src="" ng-show="true"
+									title="Assign User">
+							</div>
+							<div class="sch-tool-ct">
+								<div ng-hide="item.nbrComments=='0'"
+									class="sch-tool sch-tool-comment">{{item.nbrComments}}</div>
+							</div>
+							<div style="clear: both"></div>
+				</div>
+				</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="columnMain left" expanded="true">
+			<div class="columnCollapsed pane-title" id="divDoneCollapsed">
+				<div class="columnCollapsedText">
+					Done (<span class="NScount">{{doneCount}}</span>)
+				</div>
+			</div>
+			<div class="column" id="divDone">
+				<div class="column-title">
+					<div class="textbox pane-title">
+						Done (<span class="NScount">{{doneCount}}</span>)
+					</div>
+					<div class="iconBox">
+						<img src="img/expand.png" ng-click="addTaskStoreEntry(3)"
+							class="cursor-hand" title="Add Task" />&nbsp; <img
+							src="img/collapse.png" class="cursor-hand" type="collapseColumn" />
+					</div>
+				</div>
+				<ul ui-drop-listener='dropListener' data-stid="3"
+					class="sortable-list col4" id="targetList2"
+					dnd-between-list="done,targetList1"
+					ng-class="{'minimalList':doneEmpty()}" state="3">
+					<li ui-draggable class=""
+						ng-repeat="item in done = (taskStore | filter:{ state: 3 })"
+						data-index='{{$index}}' data-id="{{item.id}}"
+						item-index="{{$index}}" item-id="{{item.id}}"
+						item-state="{{item.state}}">
+						<div class="sch-task">
+							<div class="sch-color"></div>
+							<div class="sch-task-name" />
+							<span data-type="editable" data-updatable='true'
+								id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
+							<input id="user-name{{item.id}}" class='hidden'>
+						</div>
+						<div class="Imgwrapper" style="display: none">
+							<img id="changeUser{{item.id}}"
+								class="sch-user-avatar context-menu-one cursor-hand"
+								ng-src="{{item.userImg}}" src="" ng-show="true"
+								title="Assign User">
+						</div>
+						<div class="sch-tool-ct">
+							<div ng-hide="item.nbrComments=='0'"
+								class="sch-tool sch-tool-comment">{{item.nbrComments}}</div>
+						</div>
+						<div style="clear: both"></div>
+			</div>
+			</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="clearer">&nbsp;</div>
+
+	<script
+		src='//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js'></script>
+	<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'></script>
+	<script
+		src='//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js'></script>
+	<script
+		src='//ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js'></script>
+
+	<script src="js/jquery.contextMenu.js" type="text/javascript"></script>
+
+	<script src="js/editable.js" type="text/javascript"></script>
+
+	<!-- load the app scripts -->
+	<script src="js/app/app.js" type="text/javascript"></script>
+	<script src="js/app/ctrl-dnd.js" type="text/javascript"></script>
+	<script src="js/app/dir-dnd.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "name": "KB",
+  "dependencies": {
+    "node-static": "*"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-sed": "~0.1.1"
+  }
+}

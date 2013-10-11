@@ -1,0 +1,310 @@
+
+/*
+	Alignment
+------------------------------------------------------------------- */
+
+/* Floats */
+
+.left {float: left;}
+.right {float: right;}
+
+.clear,.clearer {clear: both;}
+.clearer {
+	display: block;
+	font-size: 0;
+	height: 0;
+	line-height: 0;
+}
+
+
+/*
+	DND specifics
+------------------------------------------------------------------- */
+
+/* Layout */
+
+#kanban-dnd-wrapper {
+    height: 95%;
+    margin: 0 15px;
+    overflow-x: hidden;
+    width: 100%;
+}
+/* Columns */
+
+.column {
+	margin-left: 2%;
+	width: 23%;
+	height:100%;
+	border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+	background-color: #DADADA;
+}
+
+.column-title{
+	width:100%;
+	overflow:hidden;
+	height:15px;
+	font-size:1.25em;
+	font-weight:bold;
+	color:#575757;
+	padding:10px;
+	}
+	.column-title .textbox{
+	width:80%;
+	}
+.column-title .iconBox{
+    text-align: right;
+    margin-right: 20px;
+}
+ .hidden{
+        display: none; 
+		}
+.first {
+    margin-left: 0;
+}
+	
+/* Sortable items */
+
+.sortable-list {
+	background-color: #DADADA;
+	list-style: none;
+	margin: 0;
+	height:95%;
+    padding: 0 10px;
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+	border-radius: 5px;
+}
+
+	  .col1 li  .sch-color{
+	   background: none repeat scroll 0 0 #A52A2A;
+	  }
+	    .col2 li .sch-color{
+	   background: none repeat scroll 0 0  #e7a84b;
+	  }
+	    .col3 li .sch-color{
+	   background: none repeat scroll 0 0  #add8e6;
+	  }
+	    .col4 li .sch-color{
+	   background: none repeat scroll 0 0 #90EE90;
+	  }
+
+
+/* Containment area */
+
+#containment {
+	background-color: #FFA;
+	height: 230px;
+}
+
+
+/* Item placeholder (visual helper) */
+
+.placeholder {
+	background-color: #BFB;
+	border: 1px dashed #666;
+	height: 58px;
+	margin-bottom: 5px;
+}
+
+    .nomargin {
+            margin-top: 0px; margin-bottom: 0px;
+        }
+        .minimalList {
+            min-height: 100px;
+        }
+		
+
+.state-0 .sch-color {
+    background: none repeat scroll 0 0 brown;
+}
+.sch-color {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    height: 100%;
+    position: absolute;
+    width: 7px;
+}
+.x-border-box, .x-border-box * {
+    -moz-box-sizing: border-box;
+}
+
+
+
+.sch-task-name {
+    margin-left: 15px;
+    margin-top: 3px;
+}
+
+
+.sch-user-avatar {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #BABABA;
+    border-radius: 2px 2px 2px 2px;
+    bottom: -4px;
+    height: 20px;
+    padding: 1px;
+    position: absolute;
+    right: -4px;
+    width: 20px;
+}
+.x-border-box, .x-border-box * {
+    -moz-box-sizing: border-box;
+}
+.sch-tool-ct {
+    float: left;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    width: 90%;
+}
+.x-border-box, .x-border-box * {
+    -moz-box-sizing: border-box;
+}
+
+
+.sch-task {
+ -moz-border-bottom-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FFFFFF;
+    border-image: none;
+    border-radius: 5px 5px 5px 5px;
+    border-style: solid;
+    border-width: 1px 1px 1px 5px;
+    box-shadow: 0 1px 1px #B7B7B7;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 1px 1px 1px rgba(150, 150, 150, 0.2);
+    color: #888888;
+    cursor: pointer;
+    margin: 5px 0;
+    position: relative;
+}
+   
+
+.sch-color {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    height: 100%;
+    position: absolute;
+    width: 7px;
+}
+
+.sch-tool-ct {
+    float: left;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    width: 90%;
+}
+
+.sch-tool-comment {
+    background: url("../img/comment.png") no-repeat scroll 2px center / 10px auto #EEEEEE;
+}
+.sch-tool {
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    float: left;
+    font-size: 9px;
+    height: 16px;
+    line-height: 12px;
+    margin-top: 7px;
+    padding: 0 10px 0 15px;
+    width: 16px;
+}
+.x-border-box, .x-border-box * {
+    -moz-box-sizing: border-box;
+}
+
+.x-hidden, .x-hide-offsets {
+    display: block !important;
+    position: absolute !important;
+    top: -10000px !important;
+    visibility: hidden !important;
+}
+.x-border-box, .x-border-box * {
+    -moz-box-sizing: border-box;
+}
+
+.column {
+	float: left; 
+	border-left:
+	display: block;
+    background-color: #DADADA;
+    border-radius: 5px 5px 5px 5px;
+    height: 100%;
+    margin-left: 2%;
+    width: 23%;
+	padding: 15px 0;
+}
+
+.column, .columnCollapsed {
+	border-left: display:  block;
+	background-color: #DADADA;
+	border-radius: 5px 5px 5px 5px;
+	height: 100%;
+	width: 100%;
+	margin: 0%;
+	padding: 15px 0;
+}
+
+.columnCollapsed {
+	cursor: pointer;
+}
+
+.columnCollapsedText {
+	-webkit-transform-origin: 0 0;
+       -moz-transform-origin: 0 0;
+         -o-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transform: rotate(90deg) translate(10px, -40px);
+       -moz-transform: rotate(90deg) translate(10px, -40px);
+         -o-transform: rotate(90deg) translate(10px, -40px);
+            transform: rotate(90deg) translate(10px, -40px);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    width: 200px;
+	font-size: 1.6em !important;
+	font-weight:normal !important;
+}
+
+.columnMain {
+	float: left;
+	margin-left: 1.5%;
+	height: 100%;
+	width: 23.1%;
+}
+.columnMain.first {
+    margin-left: 1%;
+}
+.exp{
+  float:left;
+    margin-right:5px;
+}
+.coll{
+float:left;
+    margin-right:5px;
+}
+.textbox{
+float:left;
+    margin-right:5px;
+}
+
+.cursor-hand {
+	cursor: pointer;
+}
+
+.pane-title{
+   color: #666666;
+    display: block;
+    font-family: tahoma;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 15px;
+    margin: 5px;
+    text-transform: none;
+}
