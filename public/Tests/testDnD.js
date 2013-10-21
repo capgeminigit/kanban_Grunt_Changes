@@ -8,24 +8,78 @@
 /* jasmine specs for modules go here */
 
 
-describe('drag and drop', function() {
+describe('Initialization of App', function() {
 
-    var scope, ele;
+    var scope, ele, controller;
 
-    beforeEach(inject(function($rootScope, $controller) {
-            console.log('beforeEach ****');
+    beforeEach(inject(function($rootScope, $controller, $compile) {
+
+
+            ele = angular.element(
+                '<div class="columnCollapsed" id="divNotStartedCollapsed">' +
+                    '<div class="columnCollapsedText pane-title">' +
+                    'Not Started (<span class="NScount">{{nstartCount}}</span>)' +
+                    '</div>' +
+                '</div>'
+            );
+
+            /*
+            ele = angular.element(
+                    '<ul ui-drop-listener=\'dropListener\' data-stid="0" id="sourceList"'+
+                        'dnd-between-list="notStarted,targetList"'+
+                        'ng-class="{\'minimalList\':notStartedEmpty()}"'+
+                        'class="sortable-list col1" state="0">'+
+
+                        '<li ui-draggable '+
+                            'ng-repeat="item in nstart = (taskStore | filter:{ state: 0 })"'+
+                            'data-index=\'{{$index}}\' data-id="{{item.id}}"'+
+                            'item-index="{{$index}}" item-id="{{item.id}}"'+
+                            'item-state="{{item.state}}">'+
+                            '<div class="sch-task">'+
+                                '<div class="sch-color"></div>'+
+                                '<div class="sch-task-name" />'+
+                                    '<span class="item-name-holder" data-type="editable" data-updatable=\'true\''+
+                                        'id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>'+
+                                        '<input id="user-name{{item.id}}" class=\'hidden\'>'+
+                                '</div>'+
+                            '<div class="Imgwrapper" style="display: none">'+
+                                '<img id="changeUser{{item.id}}"'+
+                                        'class="sch-user-avatar context-menu-one cursor-hand"'+
+                                        'ng-src="{{item.userImg}}" src="" ng-show="true"'+
+                                        'title="Assign User">'+
+                            '</div>'+
+                            '<div class="sch-tool-ct">'+
+                            '<div ng-hide="item.nbrComments==\'0\'"'+
+                                'class="sch-tool sch-tool-comment">{{item.nbrComments}}</div>'+
+                            '</div>'+
+                            '<div style="clear: both"></div>'+
+                            '</div>'+
+                        '</li>'+
+                    '</ul>'
+                  );
+            */
             scope = $rootScope.$new();
-
-            $controller("dndCtrl", {
+            controller = $controller("dndCtrl", {
                 $scope: scope
             });
+            $compile(ele)(scope);
+            scope.$digest();
 
     }));
 
 
+    it(' should have the controller defined', function() {
+        expect(controller).toBeDefined();
+    });
+
+    it(' should have the tasks defined', function () {
+        expect(scope.taskStore.length).toBeGreaterThan(0);
+
+    });
+
     it("should increase task count when a new task is added",function(){
         //initial list count
-        var tasklist = [{"id":1,"name":"Fix IE9 bug","state":0,"nbrComments":0,"userId":1,"userName":"Hari Prasad","userImg":"img/mats.jpeg"},{"id":2,"name":"Sneak-install Chrome Frame","state":0,"nbrComments":1,"userId":1,"userName":"Mats","userImg":"img/mats.jpeg"},{"id":81,"name":"Sneak-install Chrome Frame1","state":0,"nbrComments":1,"userName":"","userImg":""},{"id":12,"name":"Add Windows Phone support","state":1,"nbrComments":1,"userId":3,"userName":"Brian","userImg":"img/brian.jpeg"},{"id":122,"name":"Make App","state":1,"nbrComments":1,"userName":"","userImg":""},{"id":3,"name":"Task 222 foo bar lots of text in this one eh? Fooooo","state":2,"nbrComments":0,"userName":"","userImg":"img/homer.jpg"},{"id":4,"name":"Find Unicorn","state":2,"nbrComments":0,"userName":"Homer","userId":2,"userImg":"img/homer.jpg"},{"id":5,"name":"IE6 support","state":1,"nbrComments":0,"userName":"","userImg":""},{"id":6,"name":"Chrome development","state":3,"nbrComments":0,"userName":"","userImg":"img/homer.jpg"},{"id":7,"name":"Find holy grail","state":3,"nbrComments":1,"userName":"","userImg":""},{"id":8,"name":"Dig hole","state":3,"nbrComments":0,"userName":"","userImg":""},{"id":9,"name":"Eat raisins","state":3,"nbrComments":3,"userName":"","userImg":"img/homer.jpg"}];
+        var tasklist = [{"id":1,"name":"Add new Task","state":0,"nbrComments":0,"userId":1,"userName":"Hari Prasad","userImg":"img/mats.jpeg"}];
         var initList = tasklist.length;
         scope.addEntry(tasklist,"changeuser",0);
         var newList = tasklist.length;
@@ -33,7 +87,22 @@ describe('drag and drop', function() {
 
     });
 
-         
+    it('should bind the content', function() {
+
+        var contents =ele.find("span");
+
+        expect(contents.text()).toBe('');
+
+        scope.$apply(function() {
+            scope.nstartCount = 123;
+        });
+
+        expect(contents.text()).toBe('123');
+
+    });
+
+
+
 });
 
 
