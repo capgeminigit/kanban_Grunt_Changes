@@ -8,14 +8,14 @@
 /* jasmine specs for modules go here */
 
 
-describe('Initialization of App', function() {
+describe('Initialization of Kanban', function() {
 
-    var scope, ele, controller;
+    var scope, ele, eleNotStart,eleInProgress,controller;
 
     beforeEach(inject(function($rootScope, $controller, $compile) {
 
 
-            ele = angular.element(
+        ele = angular.element(
                 '<div class="columnCollapsed" id="divNotStartedCollapsed">' +
                     '<div class="columnCollapsedText pane-title">' +
                     'Not Started (<span class="NScount">{{nstartCount}}</span>)' +
@@ -23,47 +23,29 @@ describe('Initialization of App', function() {
                 '</div>'
             );
 
-            /*
-            ele = angular.element(
-                    '<ul ui-drop-listener=\'dropListener\' data-stid="0" id="sourceList"'+
-                        'dnd-between-list="notStarted,targetList"'+
-                        'ng-class="{\'minimalList\':notStartedEmpty()}"'+
-                        'class="sortable-list col1" state="0">'+
+        eleNotStart = angular.element('<div class="dnd">' +
+            '<h3>Taks in notStarted:</h3>' +
+            '<ul><li ui-draggable ng-repeat="item in nstart = (taskStore | filter:{ state: 0 })"'
+            +'data-id="{{item.id}}"	item-index="{{$index}}" item-id="{{item.id}}"'+
+            'item-state="{{item.state}}">{{item.name}}</li></ul> </div>');
 
-                        '<li ui-draggable '+
-                            'ng-repeat="item in nstart = (taskStore | filter:{ state: 0 })"'+
-                            'data-index=\'{{$index}}\' data-id="{{item.id}}"'+
-                            'item-index="{{$index}}" item-id="{{item.id}}"'+
-                            'item-state="{{item.state}}">'+
-                            '<div class="sch-task">'+
-                                '<div class="sch-color"></div>'+
-                                '<div class="sch-task-name" />'+
-                                    '<span class="item-name-holder" data-type="editable" data-updatable=\'true\''+
-                                        'id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>'+
-                                        '<input id="user-name{{item.id}}" class=\'hidden\'>'+
-                                '</div>'+
-                            '<div class="Imgwrapper" style="display: none">'+
-                                '<img id="changeUser{{item.id}}"'+
-                                        'class="sch-user-avatar context-menu-one cursor-hand"'+
-                                        'ng-src="{{item.userImg}}" src="" ng-show="true"'+
-                                        'title="Assign User">'+
-                            '</div>'+
-                            '<div class="sch-tool-ct">'+
-                            '<div ng-hide="item.nbrComments==\'0\'"'+
-                                'class="sch-tool sch-tool-comment">{{item.nbrComments}}</div>'+
-                            '</div>'+
-                            '<div style="clear: both"></div>'+
-                            '</div>'+
-                        '</li>'+
-                    '</ul>'
-                  );
-            */
-            scope = $rootScope.$new();
+        eleInProgress = angular.element('<div class="dnd">' +
+            '<h3>item in inProgress:</h3>' +
+            '<ul><li ui-draggable ng-repeat="item in inProgress = (taskStore | filter:{ state: 1 })"'
+            +'data-id="{{item.id}}"	item-index="{{$index}}" item-id="{{item.id}}"'+
+            'item-state="{{item.state}}">{{item.name}}</li></ul> </div>');
+
+
+        scope = $rootScope.$new();
             controller = $controller("dndCtrl", {
                 $scope: scope
             });
-            $compile(ele)(scope);
-            scope.$digest();
+
+        $compile(ele)(scope);
+        $compile(eleNotStart)(scope);
+        $compile(eleInProgress)(scope);
+
+        scope.$digest();
 
     }));
 
@@ -90,17 +72,73 @@ describe('Initialization of App', function() {
     it('should bind the content', function() {
 
         var contents =ele.find("span");
-
         expect(contents.text()).toBe('');
-
         scope.$apply(function() {
             scope.nstartCount = 123;
-        });
-
+        })
         expect(contents.text()).toBe('123');
 
     });
 
+    //function accepting 0 means adding to notStarted and 1 means inProgress etc...
+    it("should increase task count when a state number is is added",function(){
+
+        var tasklist = scope.taskStore;
+        var initList =scope.taskStore.length;
+        console.log('Initial Length ' +initList);
+        scope.addTaskStoreEntry(0);
+        scope.addTaskStoreEntry(1);
+        scope.addTaskStoreEntry(2);
+        scope.addTaskStoreEntry(3);
+        var newList = tasklist.length;
+        console.log('New List ' +newList);
+        expect(initList).toBeLessThan(newList);
+
+    });
+
+    // Testing the angular directives
+    it('should drag and drop item between state 0 to state 1', function() {
+
+        //Before directive test pole Notstart and inprogress lengths test
+        var notTestedInitialLength = eleNotStart.find('li');
+        console.log('NotTested Initial Length>>>> ' + notTestedInitialLength.length);
+        //expect(list.length).toBe(3);
+
+        var inProgressInitialLength = eleInProgress.find('li');
+        console.log('InProgress Initial Length>>>> ' + notTestedInitialLength.length);
+        // expect(list.length).toBe(3);
+
+
+        scope.dropListener( $('<ul ui-drop-listener=\'dropListener\' data-stid="0" id="sourceList"'+
+            'dnd-between-list="notStarted,targetList"'+
+            'ng-class="{\'minimalList\':notStartedEmpty()}"'+
+            'class="sortable-list col1" state="0">'+
+            '<li ui-draggable '+
+            'ng-repeat="item in nstart = (taskStore | filter:{ state: 0 })"'+
+            'data-index=\'{{$index}}\' data-id="{{item.id}}"'+
+            'item-index="{{$index}}" item-id="{{item.id}}"'+
+            'item-state="{{item.state}}">{{item.name}}</li>).first()</ul>'),
+
+            $(' <ul ui-drop-listener=\'dropListener\' data-stid="1" id="sourceList"'+
+                'dnd-between-list="inProgress,targetList"'+
+                'ng-class="{\'minimalList\':inProgressEmpty()}"'+
+                'class="sortable-list col2" state="1">'+
+                '<li ui-draggable '+
+                'ng-repeat="item in inProgress = (taskStore | filter:{ state: 1 })"'+
+                'data-index=\'{{$index}}\' data-id="{{item.id}}"'+
+                'item-index="{{$index}}" item-id="{{item.id}}"'+
+                'item-state="{{item.state}}"> {{item.name}}</li></ul>'));
+
+        //After directive test pole Notstart and inprogress lengths test
+        var notTestedAfterTestLength = eleNotStart.find('li');
+        console.log('Notstarted Length after directive Test>>> ' +notTestedAfterTestLength.length);
+        expect(notTestedAfterTestLength.length).toBeLessThan(notTestedInitialLength.length);
+
+        var inProgressAfterTestLength = eleInProgress.find('li');
+        console.log('Inprogress Length after directive Test>>>> ' +inProgressAfterTestLength.length);
+        expect(inProgressAfterTestLength.length).toBeGreaterThan(inProgressInitialLength.length);
+
+    });
 
 
 });
