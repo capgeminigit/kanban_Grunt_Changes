@@ -53,7 +53,7 @@
 	padding:10px;
 	}
 	.column-title .textbox{
-	width:80%;
+	width:70%;
 	}
 .column-title .iconBox{
     text-align: right;
@@ -140,6 +140,7 @@
     margin-left: 15px;
     margin-top: 3px;
 }
+
 
 
 .sch-user-avatar {
@@ -307,4 +308,10 @@ float:left;
     line-height: 15px;
     margin: 5px;
     text-transform: none;
+}
+.delete-task{
+    float: right;
+    margin-right: 35px;
+    height: 16px;
+    width:16px;
 }
