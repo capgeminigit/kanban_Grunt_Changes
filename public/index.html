@@ -40,7 +40,8 @@
 									<div class="sch-task">
 										<div class="sch-color"></div>
 										<div class="sch-task-name">
-										<img src="img/remove.png" ng-click="deleteTask($index,0)" class="delete-task"/>
+										<span  ng-click="deleteTask($index,0)" class="delete-task">Remove</span>
+										<!--  <img src="img/remove.png" ng-click="deleteTask($index,0)" class="delete-task"/>-->
 										<span data-type="editable" data-updatable='true'
 											id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
 										<input id="user-name{{item.id}}" class='hidden'/>
@@ -73,7 +74,7 @@
 								In Progress (<span class="NScount">{{inProgressCount}}</span>)
 							</div>
 							<div class="iconBox">
-								<img src="img/expand.png" ng-click="addTaskStoreEntry(1)" class="cursor-hand" title="Add Task" />&nbsp;
+								<!-- <img src="img/expand.png" ng-click="addTaskStoreEntry(1)" class="cursor-hand" title="Add Task" />&nbsp; -->
 								<img src="img/collapse.png" class="cursor-hand"	type="collapseColumn" />
 							</div>
 						</div>
@@ -89,7 +90,7 @@
 									<div class="sch-task">
 											<div class="sch-color"></div>
 											<div class="sch-task-name">
-											<img src="img/remove.png" ng-click="deleteTask($index,1)" class="delete-task"/>
+											<!--  <img src="img/remove.png" ng-click="deleteTask($index,1)" class="delete-task"/> -->
 											<span data-type="editable" data-updatable='true'
 												id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
 											<input id="user-name{{item.id}}" class='hidden'/>
@@ -119,7 +120,7 @@
 					<div class="column-title">
 						<div class="textbox pane-title">Test (<span class="NScount">{{testCount}}</span>)</div>
 						<div class="iconBox">
-							<img src="img/expand.png" ng-click="addTaskStoreEntry(2)" class="cursor-hand" title="Add Task" />&nbsp;
+							<!--  <img src="img/expand.png" ng-click="addTaskStoreEntry(2)" class="cursor-hand" title="Add Task" />&nbsp;-->
 							<img src="img/collapse.png" class="cursor-hand" type="collapseColumn" />
 						</div>
 					</div>
@@ -135,7 +136,7 @@
 							<div class="sch-task">
 								<div class="sch-color"></div>
 								<div class="sch-task-name">
-								<img src="img/remove.png" ng-click="deleteTask($index,2)" class="delete-task"/>
+								<!--  <img src="img/remove.png" ng-click="deleteTask($index,2)" class="delete-task"/>-->
 								<span data-type="editable" data-updatable='true'
 									id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
 								<input id="user-name{{item.id}}" class='hidden' />
@@ -164,7 +165,7 @@
                                         Done (<span class="NScount">{{doneCount}}</span>)
                                     </div>
                                     <div class="iconBox">
-                                        <img src="img/expand.png" ng-click="addTaskStoreEntry(3)" class="cursor-hand" title="Add Task" />&nbsp;
+                                       <!--  <img src="img/expand.png" ng-click="addTaskStoreEntry(3)" class="cursor-hand" title="Add Task" />&nbsp; -->
 										<img src="img/collapse.png" class="cursor-hand" type="collapseColumn" />
                                     </div>
                                 </div>
@@ -180,7 +181,7 @@
                                         <div class="sch-task">
                                             <div class="sch-color"></div>
                                             <div class="sch-task-name">
-                                            <img src="img/remove.png" ng-click="deleteTask($index,3)" class="delete-task"/>
+                                            <!-- <img src="img/remove.png" ng-click="deleteTask($index,3)" class="delete-task"/>  -->
                                             <span data-type="editable" data-updatable='true'
                                                 id="input-medium{{item.id}}" data-for="#user-name{{item.id}}">{{item.name}}</span>
                                             <input id="user-name{{item.id}}" class='hidden' />
